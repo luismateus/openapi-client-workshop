@@ -1,4 +1,3 @@
-// src/ToDoList.tsx
 import { useEffect, useState } from 'react'
 import { getTodos, createTodo } from './api'
 import type { Todo } from './models/Todo'
@@ -8,14 +7,18 @@ export default function TodoList() {
   const [newTitle, setNewTitle] = useState('')
 
   useEffect(() => {
-    getTodos().then(setTodos)
+    getTodos().then(setTodos).catch(console.error)
   }, [])
 
   const handleAdd = async () => {
     if (!newTitle.trim()) return
-    const newTodo = await createTodo({ title: newTitle, completed: false })
-    setTodos(prev => [...prev, newTodo])
-    setNewTitle('')
+    try {
+      const newTodo = await createTodo({ title: newTitle, completed: false })
+      setTodos(prev => [...prev, newTodo])
+      setNewTitle('')
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
