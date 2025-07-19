@@ -14,7 +14,7 @@ Each branch contains a working setup for one tool.
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/your-org/openapi-client-workshop.git
+   git clone https://github.com/luismateus/openapi-client-workshop.git
    cd openapi-client-workshop
 
 2. Check out the branch for the tool you'd like to try:
