@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react'
-import { getTodos, createTodo } from './api'
-import type { Todo } from './models/Todo'
+import { api } from './api'
+import type { Todo } from './gen/models/Todo'
 
 export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([])
   const [newTitle, setNewTitle] = useState('')
 
   useEffect(() => {
-    getTodos().then(setTodos).catch(console.error)
+    api.getTodos()
+      .then(setTodos)
+      .catch(console.error)
   }, [])
 
   const handleAdd = async () => {
     if (!newTitle.trim()) return
+
     try {
-      const newTodo = await createTodo({ title: newTitle, completed: false })
-      setTodos(prev => [...prev, newTodo])
+      await api.createTodos({ newTodo: { title: newTitle, completed: false } })
+      const updated = await api.getTodos()
+      setTodos(updated)
       setNewTitle('')
-    } catch (err) {
-      console.error(err)
+    } catch (e) {
+      console.error('Failed to create todo:', e)
     }
   }
 

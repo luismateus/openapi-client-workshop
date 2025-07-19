@@ -1,22 +1,8 @@
-// src/api/todos.ts
-import type { Todo } from './models/Todo'
+import { DefaultApi } from './gen/apis'
+import { Configuration } from './gen/runtime'
 
-const BASE_URL = 'http://localhost:4000'
+const config = new Configuration({
+  basePath: 'http://localhost:4000', // <-- replace with your real backend URL
+})
 
-export async function getTodos(): Promise<Todo[]> {
-  const res = await fetch(`${BASE_URL}/todos`)
-  if (!res.ok) throw new Error('Failed to fetch todos')
-  return res.json()
-}
-
-export async function createTodo(todo: Omit<Todo, 'id'>): Promise<Todo> {
-  const res = await fetch(`${BASE_URL}/todos`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(todo),
-  })
-  if (!res.ok) throw new Error('Failed to create todo')
-  return res.json()
-}
+export const api = new DefaultApi(config)
