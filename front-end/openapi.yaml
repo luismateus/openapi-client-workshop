@@ -5,6 +5,7 @@ info:
 paths:
   /todos:
     get:
+      operationId: getTodos
       summary: List todos
       responses:
         '200':
@@ -16,6 +17,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Todo'
     post:
+      operationId: createTodos
       summary: Create todo
       requestBody:
         required: true
@@ -28,6 +30,7 @@ paths:
           description: Created
   /todos/{id}:
     get:
+      operationId: getTodoById
       summary: Get todo by ID
       parameters:
         - name: id

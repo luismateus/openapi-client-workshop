@@ -1,6 +1,7 @@
+// src/ToDoList.tsx
 import { useEffect, useState } from 'react'
 import { getTodos, createTodo } from './api'
-import type { Todo } from './api'
+import type { Todo } from './models/Todo'
 
 export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([])
